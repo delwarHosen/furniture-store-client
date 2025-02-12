@@ -1,7 +1,8 @@
 import React from 'react';
 import logo from '../../assets/Image/logo.png'
 import { NavLink } from 'react-router-dom';
-import { FaShoppingCart } from 'react-icons/fa';
+import {  FaShoppingCart } from 'react-icons/fa';
+import {  FaBarsStaggered } from 'react-icons/fa6';
 
 const NAvbar = () => {
     const allLinks = <>
@@ -9,24 +10,14 @@ const NAvbar = () => {
         <li> <NavLink to="/shop">Shop</NavLink></li>
         <li> <NavLink to="/about">About</NavLink></li>
         <li> <NavLink to="/blog">Blog</NavLink></li>
+        <li> <NavLink to="/addProduct">Add Product</NavLink></li>
     </>
     return (
         <div className="navbar">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-5 w-5"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M4 6h16M4 12h8m-8 6h16" />
-                        </svg>
+                        <FaBarsStaggered className='w-5 h-5'></FaBarsStaggered>
                     </div>
                     <ul
                         tabIndex={0}
