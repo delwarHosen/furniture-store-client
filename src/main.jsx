@@ -13,6 +13,12 @@ import AuthPRovider from './Provider/AuthPRovider';
 import AddProduct from './components/AddProduct/AddProduct';
 import Shop from './Shared/Shop/Shop';
 import ProductDetails from './components/ProductDetails/ProductDetails';
+import UpdateProduct from './components/UpdatePRoduct/UpdateProduct';
+import AllProduct from './components/AllProduct/AllProduct';
+import DashBoard from './components/DashBoard/DashBoard';
+import SignIn from './components/SignIn/SignIn';
+import SignUp from './components/SignUp/SignUp';
+import PrivateRoute from './PrivateRoute/PrivateRoute';
 
 const router = createBrowserRouter([
   {
@@ -26,7 +32,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'addProduct',
-        element: <AddProduct></AddProduct>
+        element: <PrivateRoute><AddProduct></AddProduct></PrivateRoute>
       },
       {
         path: 'shop',
@@ -36,9 +42,33 @@ const router = createBrowserRouter([
         path: "product/:id",
         element: <ProductDetails></ProductDetails>,
         loader: ({ params }) => fetch(`http://localhost:5000/product/${params.id}`)
+      },
+      {
+        path: 'login',
+        element: <SignIn></SignIn>
+      },
+      {
+        path:"signup",
+        element:<SignUp></SignUp>
       }
+
     ]
   },
+  {
+    path: "dashboard",
+    element: <DashBoard></DashBoard>,
+    children: [
+      {
+        path: "updateProduct/:id",
+        element: <PrivateRoute><UpdateProduct></UpdateProduct></PrivateRoute>,
+        loader: ({ params }) => fetch(`http://localhost:5000/product/${params.id}`)
+      },
+      {
+        path: "allProduct",
+        element: <AllProduct></AllProduct>
+      },
+    ]
+  }
 ]);
 
 createRoot(document.getElementById('root')).render(

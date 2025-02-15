@@ -1,16 +1,31 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import logo from '../../assets/Image/logo.png'
-import { NavLink } from 'react-router-dom';
-import {  FaShoppingCart } from 'react-icons/fa';
-import {  FaBarsStaggered } from 'react-icons/fa6';
+import { Link, NavLink } from 'react-router-dom';
+import { FaShoppingCart } from 'react-icons/fa';
+import { FaBarsStaggered } from 'react-icons/fa6';
+import { AuthContext } from '../../Provider/AuthPRovider';
 
 const NAvbar = () => {
+
+    const { user, logOut } = useContext(AuthContext)
+
+    const handleLogout = () => {
+        logOut()
+            .then(() => {
+                console.log("user logout");
+            })
+            .catch(err => {
+                console.log(err.message);
+            })
+    }
+
     const allLinks = <>
         <li> <NavLink to="/">Home</NavLink></li>
         <li> <NavLink to="/shop">Shop</NavLink></li>
         <li> <NavLink to="/about">About</NavLink></li>
         <li> <NavLink to="/blog">Blog</NavLink></li>
         <li> <NavLink to="/addProduct">Add Product</NavLink></li>
+        <li> <NavLink to="dashboard/allProduct">All Product</NavLink></li>
     </>
     return (
         <div className="navbar">
@@ -35,7 +50,18 @@ const NAvbar = () => {
             <div className="navbar-end space-x-5">
                 <p className='text-2xl text-[#F99E1E]'><FaShoppingCart></FaShoppingCart></p>
                 <a href="/">Account</a>
-                <a href="/">Logout</a>
+                {
+                    user ?
+                        <>
+                            <button onClick={handleLogout}>Logout</button>
+                        </> :
+
+                        <>
+                            <Link to='/signup'>Signup</Link>
+                            <Link to='/login'>Login</Link>
+                        </>
+                }
+
             </div>
         </div>
     );
